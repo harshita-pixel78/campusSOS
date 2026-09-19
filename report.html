@@ -1,391 +1,84 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Report Problem - CampusSOS</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report a campus problem using CampusSOS.">
+    <title>Report a Problem | CampusSOS</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
-
-
 <body>
+<nav class="navbar"><div class="nav-container">
+    <a href="index.html" class="logo">Campus<span>SOS</span></a>
+    <div class="nav-links" aria-label="Main navigation"><a href="index.html">Home</a><a href="report.html" class="active" aria-current="page">Report</a><a href="track.html">Track</a><a href="admin.html">Staff</a></div>
+</div></nav>
 
+<main class="page-container">
+    <section class="report-header">
+        <div class="page-badge">Student Portal</div>
+        <h1>Report a campus problem</h1>
+        <p>Tell us what happened and where. CampusSOS will suggest how the issue should be routed.</p>
+    </section>
 
-    <!-- ============================= -->
-    <!-- Navigation -->
-    <!-- ============================= -->
-
-    <nav class="navbar">
-
-        <div class="nav-logo">
-            CampusSOS
-        </div>
-
-        <div class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="track.html">
-                Track
-            </a>
-
-            <a href="admin.html">
-                Admin
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- ============================= -->
-    <!-- Main Page -->
-    <!-- ============================= -->
-
-    <div class="page-container">
-
-
-        <h1>
-            Report a Campus Problem
-        </h1>
-
-
-        <p>
-            Tell us what happened. CampusSOS will
-            automatically analyze your complaint and
-            route it to the appropriate department.
-        </p>
-
-
-        <!-- ============================= -->
-        <!-- Reporting Form -->
-        <!-- ============================= -->
-
+    <section class="report-layout">
         <div class="form-card">
+            <div class="form-card-header">
+                <div class="form-step-label">QUICK REPORT</div>
+                <h2>What needs attention?</h2>
+                <p>You only need to provide the details needed to understand and route the issue.</p>
+            </div>
 
-
-            <form
-                onsubmit="
-                    event.preventDefault();
-                    submitComplaint();
-                "
-            >
-
-
-                <!-- Student Name -->
-
+            <form id="complaintForm" novalidate>
                 <div class="form-group">
-
-                    <label for="studentName">
-                        Student Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="studentName"
-                        placeholder="Enter your name"
-                    >
-
+                    <label for="studentName">Your name <span class="optional-label">Optional</span></label>
+                    <input type="text" id="studentName" maxlength="80" autocomplete="name" placeholder="e.g. Harshita">
+                    <small class="field-help">Leave this blank if you prefer not to identify yourself.</small>
                 </div>
 
-
-                <!-- Problem -->
-
                 <div class="form-group">
-
-                    <label for="problem">
-                        Describe the Problem
-                    </label>
-
-                    <textarea
-                        id="problem"
-                        placeholder="Example: Water leakage near Hostel Block A"
-                        oninput="showTriagePreview()"
-                    ></textarea>
-
-                    <p
-                        style="
-                            color:#64748b;
-                            font-size:13px;
-                            margin-top:8px;
-                        "
-                    >
-                        Tip: Describe the problem clearly.
-                        Mention what happened and where it happened.
-                    </p>
-
+                    <label for="problem">What happened? <span class="required-label">Required</span></label>
+                    <textarea id="problem" rows="6" maxlength="500" required placeholder="Example: The water tap near the hostel washroom has been leaking since yesterday."></textarea>
+                    <div class="field-meta"><small class="field-help">Be specific about the problem. Avoid sharing passwords or other sensitive information.</small><span class="character-counter"><span id="characterCount">0</span>/500</span></div>
                 </div>
 
-
-                <!-- Location -->
-
                 <div class="form-group">
-
-                    <label for="location">
-                        Location
-                    </label>
-
-                    <input
-                        type="text"
-                        id="location"
-                        placeholder="Example: Hostel Block A"
-                    >
-
-                </div>
-
-
-                <!-- ============================= -->
-                <!-- Smart Triage -->
-                <!-- ============================= -->
-
-                <div
-                    id="triagePreview"
-                    class="triage-preview"
-                    style="display:none;"
-                >
-
-
-                    <div class="triage-header">
-
-                        <strong>
-                            Smart Triage Result
-                        </strong>
-
-                        <span>
-                            Automatically detected
-                        </span>
-
+                    <label for="location">Where is it? <span class="required-label">Required</span></label>
+                    <input type="text" id="location" maxlength="120" autocomplete="off" placeholder="e.g. Girls Hostel, Block A, 2nd floor" required>
+                    <div class="quick-location" aria-label="Quick location choices">
+                        <button type="button" class="location-chip" onclick="setLocation('Hostel')">Hostel</button>
+                        <button type="button" class="location-chip" onclick="setLocation('Academic Block')">Academic Block</button>
+                        <button type="button" class="location-chip" onclick="setLocation('Library')">Library</button>
+                        <button type="button" class="location-chip" onclick="setLocation('Computer Lab')">Computer Lab</button>
+                        <button type="button" class="location-chip" onclick="setLocation('Canteen / Mess')">Canteen / Mess</button>
+                        <button type="button" class="location-chip" onclick="setLocation('Sports Area')">Sports Area</button>
                     </div>
-
-
-                    <div class="triage-grid">
-
-
-                        <div class="triage-item">
-
-                            <span>
-                                Category
-                            </span>
-
-                            <strong
-                                id="previewCategory"
-                            >
-                                -
-                            </strong>
-
-                        </div>
-
-
-                        <div class="triage-item">
-
-                            <span>
-                                Priority
-                            </span>
-
-                            <strong
-                                id="previewPriority"
-                            >
-                                -
-                            </strong>
-
-                        </div>
-
-
-                        <div class="triage-item">
-
-                            <span>
-                                Department
-                            </span>
-
-                            <strong
-                                id="previewDepartment"
-                            >
-                                -
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <p id="previewReason">
-                        -
-                    </p>
-
-
                 </div>
 
-
-                <!-- Submit -->
-
-                <button
-                    type="submit"
-                >
-
-                    Submit Complaint
-
-                </button>
-
-
+                <div class="form-actions-row">
+                    <button type="submit" class="primary-button submit-button">Submit complaint</button>
+                    <a href="track.html" class="text-link">Already reported something? Track it</a>
+                </div>
             </form>
-
-
         </div>
 
-
-        <!-- ============================= -->
-        <!-- Smart Triage Explanation -->
-        <!-- ============================= -->
-
-        <div
-            class="feature-card"
-            style="
-                width:auto;
-                margin-top:30px;
-            "
-        >
-
-
-            <div class="feature-icon">
-                AI
+        <aside class="triage-card" aria-labelledby="triageTitle">
+            <div class="page-badge">Smart Triage</div>
+            <h2 id="triageTitle">Suggested routing</h2>
+            <p class="triage-intro">As you type, CampusSOS identifies a likely category, priority, and responsible department.</p>
+            <div id="triagePreview" class="triage-preview" aria-live="polite">
+                <div class="triage-empty"><strong>Smart Triage will appear here</strong><p>Describe the problem and the suggestion will update automatically.</p></div>
             </div>
-
-
-            <h3>
-                Smart Triage
-            </h3>
-
-
-            <p>
-                CampusSOS analyzes the complaint description
-                and automatically identifies:
-            </p>
-
-
-            <p>
-                <strong>
-                    Category
-                </strong>
-                •
-                <strong>
-                    Priority
-                </strong>
-                •
-                <strong>
-                    Responsible Department
-                </strong>
-            </p>
-
-
-            <p>
-                This reduces manual sorting and helps
-                urgent campus issues reach the right
-                department faster.
-            </p>
-
-
-        </div>
-
-
-        <!-- ============================= -->
-        <!-- Simple Process -->
-        <!-- ============================= -->
-
-        <section
-            class="how-section"
-            style="
-                margin-top:50px;
-                border-radius:14px;
-            "
-        >
-
-
-            <h2>
-                What happens next?
-            </h2>
-
-
-            <div class="steps">
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        1
-                    </div>
-
-                    <h3>
-                        Submit
-                    </h3>
-
-                    <p>
-                        Your complaint is registered
-                        with a unique complaint ID.
-                    </p>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        2
-                    </div>
-
-                    <h3>
-                        Smart Triage
-                    </h3>
-
-                    <p>
-                        The system identifies priority
-                        and routes the complaint.
-                    </p>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        3
-                    </div>
-
-                    <h3>
-                        Track
-                    </h3>
-
-                    <p>
-                        Use your complaint ID to monitor
-                        the progress of your issue.
-                    </p>
-
-                </div>
-
-
+            <div class="triage-process">
+                <div class="triage-process-item"><span class="triage-number">1</span><div><strong>Understand</strong><p>Read the description.</p></div></div>
+                <div class="triage-process-item"><span class="triage-number">2</span><div><strong>Prioritize</strong><p>Estimate urgency.</p></div></div>
+                <div class="triage-process-item"><span class="triage-number">3</span><div><strong>Route</strong><p>Suggest the right team.</p></div></div>
             </div>
+            <div class="safety-note compact"><div class="safety-icon">!</div><div><strong>Safety first</strong><p>For immediate danger, contact campus security or local emergency services directly. This app is not an emergency service.</p></div></div>
+        </aside>
+    </section>
+</main>
 
-
-        </section>
-
-
-    </div>
-
-
-    <!-- JavaScript -->
-
-    <script src="script.js"></script>
-
-
+<footer class="footer"><div class="footer-container"><div><strong>CampusSOS</strong><p>Making campus problem reporting simpler and more transparent.</p></div><div class="footer-links"><a href="index.html">Home</a><a href="report.html">Report</a><a href="track.html">Track</a><a href="admin.html">Staff</a></div></div><div class="footer-bottom">CampusSOS • Hack Devengers 2.0 • MVP Prototype</div></footer>
+<script src="script.js"></script>
 </body>
-
 </html>

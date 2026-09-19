@@ -2,81 +2,101 @@
 
 ## Smart Campus Problem Reporting & Resolution System
 
-CampusSOS is a student-focused web application that provides a centralized system for reporting, prioritizing, routing and tracking campus problems.
+CampusSOS is a student-focused web application prototype for reporting, prioritizing, routing, tracking, and closing campus problems through one workflow.
 
-Instead of students having to figure out whom to contact for different problems, CampusSOS creates one simple workflow for campus complaints.
+### Hackathon
+- Event: Hack Devengers 2.0
+- Format: Online open-innovation hackathon
+- Prototype type: Front-end MVP
 
----
+## Core workflow
 
-## Problem Statement
+1. Student describes a problem and location.
+2. Smart Triage suggests category, priority, department, and reason.
+3. The student receives a unique Complaint ID.
+4. The complaint can be tracked through a status timeline.
+5. Admin can search, filter, assign, update status, and add resolution notes.
+6. A student can confirm resolution or reopen a complaint if it was not actually fixed.
 
-Campus problems such as:
+## Smart Triage categories
 
-- Water leakage
-- Broken infrastructure
-- Wi-Fi failures
-- Cleanliness issues
-- Hostel problems
-- Food and mess complaints
-- Safety concerns
+- Safety → Critical → Campus Safety
+- Safety & Security → High → Campus Security
+- Maintenance → Medium → Maintenance
+- IT → Medium → IT Support
+- Food → Medium → Mess / Food Services
+- Cleanliness → Medium → Housekeeping
+- Hostel → Medium → Hostel Administration
+- General → Low → Campus Administration
 
-are often reported through scattered channels.
+The triage engine is a transparent keyword-based prototype, not a production AI model. Its output should be treated as a recommendation for demonstration purposes.
 
-This can create problems such as:
+## Features
 
-- Complaints getting lost
-- Students not knowing which department to contact
-- Manual sorting of complaints
-- Important issues not being prioritized
-- Students having no simple way to track progress
+### Student side
+- Minimal report form
+- Optional name
+- Problem description with character counter
+- Quick location buttons
+- Live Smart Triage preview
+- Unique Complaint ID
+- Complaint tracking
+- Resolution feedback and reopening
 
-CampusSOS aims to solve this by providing one centralized complaint management workflow.
+### Admin side
+- Complaint statistics
+- High-priority alert
+- Search and filters
+- Priority sorting
+- Department workload
+- Complaint age
+- Status updates
+- Assignment
+- Resolution notes
+- Demo data
 
----
+## Technology
 
-## Our Solution
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- Browser localStorage
+- GitHub Pages
 
-CampusSOS allows students to:
+No backend or external API is required for the MVP.
 
-1. Report a campus problem
-2. Describe the issue and location
-3. Receive automatic Smart Triage
-4. Get a unique Complaint ID
-5. Track the complaint
-6. View its current status
+## Data model
 
-Campus authorities can:
+Each complaint stores:
 
-1. View all complaints
-2. Search complaints
-3. Filter complaints
-4. Identify high-priority issues
-5. See department workload
-6. Update complaint status
-7. Monitor resolution statistics
+`id`, `studentName`, `description`, `location`, `category`, `priority`, `department`, `triageReason`, `emergency`, `status`, `assignedTo`, `resolutionNote`, `studentFeedback`, `createdAt`, `updatedAt`, `resolvedAt`, `reopenedAt`.
 
----
+## Important prototype limitation
 
-## Smart Triage
+Data is stored in the browser's localStorage. That means a complaint is not shared between different devices or browsers. A production CampusSOS system should use authenticated student/admin accounts, a shared database, server-side authorization, notifications, audit logs, and appropriate privacy/security controls.
 
-One of the main features of CampusSOS is Smart Triage.
+## Demo flow
 
-The system analyzes the complaint description and automatically determines:
+For a hackathon demonstration:
 
-- Category
-- Priority
-- Responsible Department
-- Reason for the classification
+1. Open Home.
+2. Report a normal maintenance issue.
+3. Show the live Smart Triage result.
+4. Submit and copy the Complaint ID.
+5. Open Track and show the timeline.
+6. Open Admin and add Demo Data.
+7. Show the Critical complaint, department workload, assignment, status update, and resolution note.
+8. Return to Track and demonstrate resolution feedback/reopening.
 
-### Example
-
-Student reports:
-
-> Smoke coming from an electrical room.
-
-CampusSOS identifies:
+## Project structure
 
 ```text
-Category: Safety
-Priority: High
-Department: Campus Safety
+CampusSOS/
+├── index.html
+├── report.html
+├── track.html
+├── admin.html
+├── style.css
+├── script.js
+└── README.md
+```

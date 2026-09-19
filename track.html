@@ -1,253 +1,45 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Track Complaint - CampusSOS</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Track the status of a CampusSOS complaint.">
+    <title>Track Complaint | CampusSOS</title>
     <link rel="stylesheet" href="style.css">
-
 </head>
-
-
 <body>
-
-
-    <!-- ============================= -->
-    <!-- Navigation -->
-    <!-- ============================= -->
-
-    <nav class="navbar">
-
-        <div class="nav-logo">
-            CampusSOS
-        </div>
-
-        <div class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="report.html">
-                Report
-            </a>
-
-            <a href="admin.html">
-                Admin
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- ============================= -->
-    <!-- Main Page -->
-    <!-- ============================= -->
-
-    <div class="page-container">
-
-
-        <h1>
-            Track Your Complaint
-        </h1>
-
-
-        <p>
-            Enter your complaint ID to see the current
-            status and progress of your reported issue.
-        </p>
-
-
-        <!-- ============================= -->
-        <!-- Tracking Form -->
-        <!-- ============================= -->
-
-        <div class="form-card">
-
-
-            <div class="form-group">
-
-                <label for="complaintID">
-                    Complaint ID
-                </label>
-
-
-                <input
-                    type="text"
-                    id="complaintID"
-                    placeholder="Example: CS1234"
-                >
-
-
-                <p
-                    style="
-                        color:#64748b;
-                        font-size:13px;
-                        margin-top:8px;
-                    "
-                >
-                    Your complaint ID was shown after
-                    successfully submitting your report.
-                </p>
-
-            </div>
-
-
-            <button
-                id="trackButton"
-                type="button"
-            >
-
-                Track Complaint
-
-            </button>
-
-
-        </div>
-
-
-        <!-- ============================= -->
-        <!-- Tracking Result -->
-        <!-- ============================= -->
-
-        <div id="result"></div>
-
-
-        <!-- ============================= -->
-        <!-- Help Section -->
-        <!-- ============================= -->
-
-        <div
-            class="feature-card"
-            style="
-                width:auto;
-                margin-top:30px;
-            "
-        >
-
-            <div class="feature-icon">
-                ID
-            </div>
-
-
-            <h3>
-                Don't lose your Complaint ID
-            </h3>
-
-
-            <p>
-                Your Complaint ID is the unique reference
-                number for your report.
-            </p>
-
-
-            <p>
-                Keep it safe so you can check the latest
-                status of your complaint whenever needed.
-            </p>
-
-
-        </div>
-
-
-        <!-- ============================= -->
-        <!-- Status Explanation -->
-        <!-- ============================= -->
-
-        <section
-            class="how-section"
-            style="
-                margin-top:50px;
-                border-radius:14px;
-            "
-        >
-
-
-            <h2>
-                Complaint Status
-            </h2>
-
-
-            <div class="steps">
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        1
-                    </div>
-
-                    <h3>
-                        Pending
-                    </h3>
-
-                    <p>
-                        Your complaint has been registered
-                        and is waiting to be handled.
-                    </p>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        2
-                    </div>
-
-                    <h3>
-                        In Progress
-                    </h3>
-
-                    <p>
-                        The responsible department is
-                        currently handling the issue.
-                    </p>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        3
-                    </div>
-
-                    <h3>
-                        Resolved
-                    </h3>
-
-                    <p>
-                        The reported issue has been
-                        marked as resolved.
-                    </p>
-
-                </div>
-
-
-            </div>
-
-
-        </section>
-
-
-    </div>
-
-
-    <!-- ============================= -->
-    <!-- JavaScript -->
-    <!-- ============================= -->
-
-    <script src="script.js"></script>
-
-
+<nav class="navbar"><div class="nav-container"><a href="index.html" class="logo">Campus<span>SOS</span></a><div class="nav-links" aria-label="Main navigation"><a href="index.html">Home</a><a href="report.html">Report</a><a href="track.html" class="active" aria-current="page">Track</a><a href="admin.html">Staff</a></div></div></nav>
+
+<main class="page-container">
+    <section class="report-header">
+        <div class="page-badge">Complaint Tracking</div>
+        <h1>Track your complaint</h1>
+        <p>Enter your Complaint ID to see the latest status, assignment, and resolution update.</p>
+    </section>
+
+    <section class="tracking-search-card">
+        <form id="trackingForm" novalidate>
+            <label for="complaintId">Complaint ID <span class="required-label">Required</span></label>
+            <div class="tracking-input-row"><input type="text" id="complaintId" maxlength="40" placeholder="e.g. CS-123456789" autocomplete="off" required><button type="submit" class="primary-button">Track complaint</button></div>
+            <small class="field-help">Your Complaint ID was shown when you submitted the report.</small>
+        </form>
+    </section>
+
+    <section id="trackingResult" class="tracking-result" aria-live="polite">
+        <div class="empty-result"><div class="empty-icon" aria-hidden="true">↗</div><h2>Nothing to show yet</h2><p>Enter your Complaint ID above to view its current progress.</p></div>
+    </section>
+
+    <section class="tracking-info-grid">
+        <div class="info-card"><div class="step-number">01</div><h3>Submitted</h3><p>Your complaint is recorded.</p></div>
+        <div class="info-card"><div class="step-number">02</div><h3>Triaged & assigned</h3><p>The issue is categorized and routed.</p></div>
+        <div class="info-card"><div class="step-number">03</div><h3>In progress</h3><p>The responsible team is working on it.</p></div>
+        <div class="info-card"><div class="step-number">04</div><h3>Resolved & verified</h3><p>You can confirm whether the issue was actually fixed.</p></div>
+    </section>
+
+    <section class="prototype-note"><strong>Prototype data model</strong><p>This MVP stores complaint data in the browser. A real institutional deployment requires a shared secure backend, authenticated access, role-based permissions, notifications, and audit logs.</p></section>
+</main>
+
+<footer class="footer"><div class="footer-container"><div><strong>CampusSOS</strong><p>Making campus problem reporting simpler and more transparent.</p></div><div class="footer-links"><a href="index.html">Home</a><a href="report.html">Report</a><a href="track.html">Track</a><a href="admin.html">Staff</a></div></div><div class="footer-bottom">CampusSOS • Hack Devengers 2.0 • MVP Prototype</div></footer>
+<script src="script.js"></script>
 </body>
-
 </html>
