@@ -1,0 +1,391 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Report Problem - CampusSOS</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================= -->
+    <!-- Navigation -->
+    <!-- ============================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-logo">
+            CampusSOS
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="track.html">
+                Track
+            </a>
+
+            <a href="admin.html">
+                Admin
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ============================= -->
+    <!-- Main Page -->
+    <!-- ============================= -->
+
+    <div class="page-container">
+
+
+        <h1>
+            Report a Campus Problem
+        </h1>
+
+
+        <p>
+            Tell us what happened. CampusSOS will
+            automatically analyze your complaint and
+            route it to the appropriate department.
+        </p>
+
+
+        <!-- ============================= -->
+        <!-- Reporting Form -->
+        <!-- ============================= -->
+
+        <div class="form-card">
+
+
+            <form
+                onsubmit="
+                    event.preventDefault();
+                    submitComplaint();
+                "
+            >
+
+
+                <!-- Student Name -->
+
+                <div class="form-group">
+
+                    <label for="studentName">
+                        Student Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentName"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+                <!-- Problem -->
+
+                <div class="form-group">
+
+                    <label for="problem">
+                        Describe the Problem
+                    </label>
+
+                    <textarea
+                        id="problem"
+                        placeholder="Example: Water leakage near Hostel Block A"
+                        oninput="showTriagePreview()"
+                    ></textarea>
+
+                    <p
+                        style="
+                            color:#64748b;
+                            font-size:13px;
+                            margin-top:8px;
+                        "
+                    >
+                        Tip: Describe the problem clearly.
+                        Mention what happened and where it happened.
+                    </p>
+
+                </div>
+
+
+                <!-- Location -->
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Example: Hostel Block A"
+                    >
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- Smart Triage -->
+                <!-- ============================= -->
+
+                <div
+                    id="triagePreview"
+                    class="triage-preview"
+                    style="display:none;"
+                >
+
+
+                    <div class="triage-header">
+
+                        <strong>
+                            Smart Triage Result
+                        </strong>
+
+                        <span>
+                            Automatically detected
+                        </span>
+
+                    </div>
+
+
+                    <div class="triage-grid">
+
+
+                        <div class="triage-item">
+
+                            <span>
+                                Category
+                            </span>
+
+                            <strong
+                                id="previewCategory"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="triage-item">
+
+                            <span>
+                                Priority
+                            </span>
+
+                            <strong
+                                id="previewPriority"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="triage-item">
+
+                            <span>
+                                Department
+                            </span>
+
+                            <strong
+                                id="previewDepartment"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <p id="previewReason">
+                        -
+                    </p>
+
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                >
+
+                    Submit Complaint
+
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- Smart Triage Explanation -->
+        <!-- ============================= -->
+
+        <div
+            class="feature-card"
+            style="
+                width:auto;
+                margin-top:30px;
+            "
+        >
+
+
+            <div class="feature-icon">
+                AI
+            </div>
+
+
+            <h3>
+                Smart Triage
+            </h3>
+
+
+            <p>
+                CampusSOS analyzes the complaint description
+                and automatically identifies:
+            </p>
+
+
+            <p>
+                <strong>
+                    Category
+                </strong>
+                •
+                <strong>
+                    Priority
+                </strong>
+                •
+                <strong>
+                    Responsible Department
+                </strong>
+            </p>
+
+
+            <p>
+                This reduces manual sorting and helps
+                urgent campus issues reach the right
+                department faster.
+            </p>
+
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- Simple Process -->
+        <!-- ============================= -->
+
+        <section
+            class="how-section"
+            style="
+                margin-top:50px;
+                border-radius:14px;
+            "
+        >
+
+
+            <h2>
+                What happens next?
+            </h2>
+
+
+            <div class="steps">
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h3>
+                        Submit
+                    </h3>
+
+                    <p>
+                        Your complaint is registered
+                        with a unique complaint ID.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Smart Triage
+                    </h3>
+
+                    <p>
+                        The system identifies priority
+                        and routes the complaint.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h3>
+                        Track
+                    </h3>
+
+                    <p>
+                        Use your complaint ID to monitor
+                        the progress of your issue.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1426 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>CampusSOS - Admin Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================= -->
+    <!-- Navigation -->
+    <!-- ============================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-logo">
+            CampusSOS
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="report.html">
+                Report
+            </a>
+
+            <a href="track.html">
+                Track
+            </a>
+
+            <a href="admin.html">
+                Admin
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ============================= -->
+    <!-- Page Heading -->
+    <!-- ============================= -->
+
+    <div class="page-container">
+
+        <h1>
+            Admin Dashboard
+        </h1>
+
+        <p>
+            Monitor, prioritize and manage campus complaints.
+        </p>
+
+        <div class="demo-badge">
+            DEMO MODE • CAMPUSSOS MVP
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- High Priority Alert -->
+    <!-- ============================= -->
+
+    <div
+        id="priorityAlert"
+        class="priority-alert"
+        style="display:none;"
+    >
+
+        <div class="alert-icon">
+            !
+        </div>
+
+        <div>
+
+            <strong>
+                High Priority Complaints Detected
+            </strong>
+
+            <p id="priorityAlertText">
+                -
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- Main Dashboard -->
+    <!-- ============================= -->
+
+    <div class="dashboard">
+
+
+        <div class="card">
+
+            <h3>
+                Total Complaints
+            </h3>
+
+            <p id="totalComplaints">
+                0
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Pending
+            </h3>
+
+            <p id="pendingComplaints">
+                0
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                In Progress
+            </h3>
+
+            <p id="progressComplaints">
+                0
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Resolved
+            </h3>
+
+            <p id="resolvedComplaints">
+                0
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- Complaint Analytics -->
+    <!-- ============================= -->
+
+    <section class="analytics-section">
+
+        <h2>
+            Complaint Analytics
+        </h2>
+
+        <p>
+            A quick overview of complaint patterns
+            and resolution performance.
+        </p>
+
+
+        <div class="analytics-grid">
+
+
+            <div class="analytics-card">
+
+                <span>
+                    High Priority
+                </span>
+
+                <strong id="highPriorityCount">
+                    0
+                </strong>
+
+                <p>
+                    Complaints requiring faster attention.
+                </p>
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <span>
+                    Resolution Rate
+                </span>
+
+                <strong id="resolutionRate">
+                    0%
+                </strong>
+
+                <p>
+                    Percentage of complaints resolved.
+                </p>
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <span>
+                    Active Complaints
+                </span>
+
+                <strong id="activeComplaints">
+                    0
+                </strong>
+
+                <p>
+                    Pending or currently being handled.
+                </p>
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <span>
+                    Top Category
+                </span>
+
+                <strong id="topCategory">
+                    -
+                </strong>
+
+                <p>
+                    Most frequently reported problem type.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- Department Workload -->
+    <!-- ============================= -->
+
+    <section class="workload-section">
+
+        <h2>
+            Department Workload
+        </h2>
+
+        <p>
+            Number of complaints routed to each department.
+        </p>
+
+
+        <div
+            id="departmentWorkload"
+            class="workload-list"
+        >
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- Demo Controls -->
+    <!-- ============================= -->
+
+    <div
+        style="
+            text-align:center;
+            margin:30px 20px;
+        "
+    >
+
+        <button
+            onclick="addDemoData()"
+        >
+
+            Add Demo Complaints
+
+        </button>
+
+
+        <button
+            class="secondary-button"
+            onclick="clearComplaints()"
+        >
+
+            Clear All Complaints
+
+        </button>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- Filters -->
+    <!-- ============================= -->
+
+    <section class="filter-panel">
+
+        <h2>
+            Complaint Filters
+        </h2>
+
+
+        <div class="filter-grid">
+
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by ID, problem, location..."
+                oninput="loadDashboard()"
+            >
+
+
+            <select
+                id="priorityFilter"
+                onchange="loadDashboard()"
+            >
+
+                <option value="All">
+                    All Priorities
+                </option>
+
+                <option value="High">
+                    High
+                </option>
+
+                <option value="Medium">
+                    Medium
+                </option>
+
+                <option value="Low">
+                    Low
+                </option>
+
+            </select>
+
+
+            <select
+                id="statusFilter"
+                onchange="loadDashboard()"
+            >
+
+                <option value="All">
+                    All Statuses
+                </option>
+
+                <option value="Pending">
+                    Pending
+                </option>
+
+                <option value="In Progress">
+                    In Progress
+                </option>
+
+                <option value="Resolved">
+                    Resolved
+                </option>
+
+            </select>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- Complaint Records -->
+    <!-- ============================= -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Student
+                    </th>
+
+                    <th>
+                        Problem
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Priority
+                    </th>
+
+                    <th>
+                        Department
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Update
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="complaintTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- JavaScript -->
+    <!-- ============================= -->
+
+    <script>
+
+
+        function loadDashboard() {
+
+
+            let complaints =
+                JSON.parse(
+                    localStorage.getItem("complaints")
+                ) || [];
+
+
+            /* ============================= */
+            /* Main Statistics */
+            /* ============================= */
+
+            let total =
+                complaints.length;
+
+
+            let pending =
+                complaints.filter(
+                    function(complaint) {
+
+                        return complaint.status === "Pending";
+
+                    }
+                ).length;
+
+
+            let progress =
+                complaints.filter(
+                    function(complaint) {
+
+                        return complaint.status === "In Progress";
+
+                    }
+                ).length;
+
+
+            let resolved =
+                complaints.filter(
+                    function(complaint) {
+
+                        return complaint.status === "Resolved";
+
+                    }
+                ).length;
+
+
+            document.getElementById(
+                "totalComplaints"
+            ).innerText = total;
+
+
+            document.getElementById(
+                "pendingComplaints"
+            ).innerText = pending;
+
+
+            document.getElementById(
+                "progressComplaints"
+            ).innerText = progress;
+
+
+            document.getElementById(
+                "resolvedComplaints"
+            ).innerText = resolved;
+
+
+            /* ============================= */
+            /* High Priority */
+            /* ============================= */
+
+            let highPriority =
+                complaints.filter(
+                    function(complaint) {
+
+                        return complaint.priority === "High";
+
+                    }
+                ).length;
+
+
+            document.getElementById(
+                "highPriorityCount"
+            ).innerText =
+                highPriority;
+
+
+            /* ============================= */
+            /* Resolution Rate */
+            /* ============================= */
+
+            let resolutionRate =
+                total > 0
+                ? Math.round(
+                    (resolved / total) * 100
+                )
+                : 0;
+
+
+            document.getElementById(
+                "resolutionRate"
+            ).innerText =
+                resolutionRate + "%";
+
+
+            /* ============================= */
+            /* Active Complaints */
+            /* ============================= */
+
+            let active =
+                pending + progress;
+
+
+            document.getElementById(
+                "activeComplaints"
+            ).innerText =
+                active;
+
+
+            /* ============================= */
+            /* Top Category */
+            /* ============================= */
+
+            let categoryCounts = {};
+
+
+            complaints.forEach(
+                function(complaint) {
+
+                    let category =
+                        complaint.category ||
+                        "General";
+
+
+                    if (
+                        !categoryCounts[category]
+                    ) {
+
+                        categoryCounts[category] =
+                            0;
+
+                    }
+
+
+                    categoryCounts[category]++;
+
+                }
+            );
+
+
+            let topCategory = "-";
+
+
+            let categories =
+                Object.keys(
+                    categoryCounts
+                );
+
+
+            if (categories.length > 0) {
+
+                categories.sort(
+                    function(a, b) {
+
+                        return (
+                            categoryCounts[b] -
+                            categoryCounts[a]
+                        );
+
+                    }
+                );
+
+
+                topCategory =
+                    categories[0];
+
+            }
+
+
+            document.getElementById(
+                "topCategory"
+            ).innerText =
+                topCategory;
+
+
+            /* ============================= */
+            /* High Priority Alert */
+            /* ============================= */
+
+            let priorityAlert =
+                document.getElementById(
+                    "priorityAlert"
+                );
+
+
+            let priorityAlertText =
+                document.getElementById(
+                    "priorityAlertText"
+                );
+
+
+            if (highPriority > 0) {
+
+                priorityAlert.style.display =
+                    "flex";
+
+
+                priorityAlertText.innerText =
+                    highPriority +
+                    " high-priority complaint" +
+                    (
+                        highPriority === 1
+                        ? ""
+                        : "s"
+                    ) +
+                    " require attention.";
+
+            }
+
+            else {
+
+                priorityAlert.style.display =
+                    "none";
+
+            }
+
+
+            /* ============================= */
+            /* Department Workload */
+            /* ============================= */
+
+            let departmentCounts = {};
+
+
+            complaints.forEach(
+                function(complaint) {
+
+                    let department =
+                        complaint.department ||
+                        "Campus Administration";
+
+
+                    if (
+                        !departmentCounts[department]
+                    ) {
+
+                        departmentCounts[department] =
+                            0;
+
+                    }
+
+
+                    departmentCounts[department]++;
+
+                }
+            );
+
+
+            let workloadContainer =
+                document.getElementById(
+                    "departmentWorkload"
+                );
+
+
+            workloadContainer.innerHTML =
+                "";
+
+
+            let departments =
+                Object.keys(
+                    departmentCounts
+                );
+
+
+            if (
+                departments.length === 0
+            ) {
+
+                workloadContainer.innerHTML = `
+
+                    <div class="workload-empty">
+
+                        No department data available yet.
+
+                    </div>
+
+                `;
+
+            }
+
+
+            departments.sort(
+                function(a, b) {
+
+                    return (
+                        departmentCounts[b] -
+                        departmentCounts[a]
+                    );
+
+                }
+            );
+
+
+            departments.forEach(
+                function(department) {
+
+
+                    let count =
+                        departmentCounts[
+                            department
+                        ];
+
+
+                    let percentage =
+                        complaints.length > 0
+                        ? Math.round(
+                            (
+                                count /
+                                complaints.length
+                            ) * 100
+                        )
+                        : 0;
+
+
+                    let item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "workload-item";
+
+
+                    item.innerHTML = `
+
+                        <div class="workload-header">
+
+                            <strong>
+                                ${department}
+                            </strong>
+
+                            <span>
+                                ${count}
+                                complaint${count === 1 ? "" : "s"}
+                            </span>
+
+                        </div>
+
+
+                        <div class="workload-bar">
+
+                            <div
+                                class="workload-progress"
+                                style="width:${percentage}%"
+                            >
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    workloadContainer.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+
+            /* ============================= */
+            /* Filters */
+            /* ============================= */
+
+            let searchInput =
+                document.getElementById(
+                    "searchInput"
+                );
+
+
+            let priorityFilter =
+                document.getElementById(
+                    "priorityFilter"
+                );
+
+
+            let statusFilter =
+                document.getElementById(
+                    "statusFilter"
+                );
+
+
+            let search =
+                searchInput
+                    ? searchInput.value
+                        .toLowerCase()
+                    : "";
+
+
+            let selectedPriority =
+                priorityFilter
+                    ? priorityFilter.value
+                    : "All";
+
+
+            let selectedStatus =
+                statusFilter
+                    ? statusFilter.value
+                    : "All";
+
+
+            let filteredComplaints =
+                complaints.filter(
+                    function(complaint) {
+
+
+                        let searchableText = (
+
+                            complaint.id +
+                            " " +
+                            complaint.name +
+                            " " +
+                            complaint.problem +
+                            " " +
+                            complaint.location +
+                            " " +
+                            complaint.category +
+                            " " +
+                            complaint.department
+
+                        ).toLowerCase();
+
+
+                        let matchesSearch =
+                            searchableText.includes(
+                                search
+                            );
+
+
+                        let matchesPriority =
+                            selectedPriority === "All" ||
+                            complaint.priority ===
+                            selectedPriority;
+
+
+                        let matchesStatus =
+                            selectedStatus === "All" ||
+                            complaint.status ===
+                            selectedStatus;
+
+
+                        return (
+                            matchesSearch &&
+                            matchesPriority &&
+                            matchesStatus
+                        );
+
+                    }
+                );
+
+
+            /* ============================= */
+            /* Complaint Table */
+            /* ============================= */
+
+            let table =
+                document.getElementById(
+                    "complaintTable"
+                );
+
+
+            table.innerHTML =
+                "";
+
+
+            if (
+                filteredComplaints.length === 0
+            ) {
+
+                table.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            style="
+                                text-align:center;
+                                padding:30px;
+                                color:#64748b;
+                            "
+                        >
+
+                            No complaints found.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+
+            }
+
+
+            filteredComplaints.forEach(
+                function(complaint) {
+
+
+                    let row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    let priorityClass =
+                        "priority-medium";
+
+
+                    if (
+                        complaint.priority ===
+                        "High"
+                    ) {
+
+                        priorityClass =
+                            "priority-high";
+
+                    }
+
+
+                    if (
+                        complaint.priority ===
+                        "Low"
+                    ) {
+
+                        priorityClass =
+                            "priority-low";
+
+                    }
+
+
+                    let statusClass =
+                        "status-table-pending";
+
+
+                    if (
+                        complaint.status ===
+                        "In Progress"
+                    ) {
+
+                        statusClass =
+                            "status-table-progress";
+
+                    }
+
+
+                    if (
+                        complaint.status ===
+                        "Resolved"
+                    ) {
+
+                        statusClass =
+                            "status-table-resolved";
+
+                    }
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            <strong>
+                                ${complaint.id}
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            ${complaint.name}
+                        </td>
+
+
+                        <td>
+                            ${complaint.problem}
+                        </td>
+
+
+                        <td>
+                            ${complaint.location}
+                        </td>
+
+
+                        <td>
+                            ${complaint.category}
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="priority-badge ${priorityClass}"
+                            >
+
+                                ${complaint.priority}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            ${complaint.department}
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="status-badge ${statusClass}"
+                            >
+
+                                ${complaint.status}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <select
+                                onchange="
+                                    updateStatus(
+                                        '${complaint.id}',
+                                        this.value
+                                    )
+                                "
+                            >
+
+                                <option
+                                    value="Pending"
+                                    ${
+                                        complaint.status ===
+                                        "Pending"
+                                        ? "selected"
+                                        : ""
+                                    }
+                                >
+                                    Pending
+                                </option>
+
+
+                                <option
+                                    value="In Progress"
+                                    ${
+                                        complaint.status ===
+                                        "In Progress"
+                                        ? "selected"
+                                        : ""
+                                    }
+                                >
+                                    In Progress
+                                </option>
+
+
+                                <option
+                                    value="Resolved"
+                                    ${
+                                        complaint.status ===
+                                        "Resolved"
+                                        ? "selected"
+                                        : ""
+                                    }
+                                >
+                                    Resolved
+                                </option>
+
+                            </select>
+
+                        </td>
+
+                    `;
+
+
+                    table.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ============================= */
+        /* Update Complaint Status */
+        /* ============================= */
+
+        function updateStatus(
+            complaintID,
+            newStatus
+        ) {
+
+
+            let complaints =
+                JSON.parse(
+                    localStorage.getItem("complaints")
+                ) || [];
+
+
+            let complaint =
+                complaints.find(
+                    function(item) {
+
+                        return item.id ===
+                            complaintID;
+
+                    }
+                );
+
+
+            if (!complaint) {
+
+                return;
+
+            }
+
+
+            complaint.status =
+                newStatus;
+
+
+            localStorage.setItem(
+                "complaints",
+                JSON.stringify(complaints)
+            );
+
+
+            loadDashboard();
+
+        }
+
+
+        /* ============================= */
+        /* Add Demo Complaints */
+        /* ============================= */
+
+        function addDemoData() {
+
+
+            let complaints =
+                JSON.parse(
+                    localStorage.getItem("complaints")
+                ) || [];
+
+
+            let demoComplaints = [
+
+                {
+
+                    id:
+                        "DEMO1001",
+
+                    name:
+                        "Aarav",
+
+                    problem:
+                        "Water leakage near Hostel Block A",
+
+                    location:
+                        "Hostel Block A",
+
+                    category:
+                        "Maintenance",
+
+                    priority:
+                        "Medium",
+
+                    department:
+                        "Maintenance Department",
+
+                    reason:
+                        "Physical infrastructure or equipment issue",
+
+                    status:
+                        "Pending"
+
+                },
+
+
+                {
+
+                    id:
+                        "DEMO1002",
+
+                    name:
+                        "Riya",
+
+                    problem:
+                        "Wi-Fi not working in the library",
+
+                    location:
+                        "Central Library",
+
+                    category:
+                        "Wi-Fi / Internet",
+
+                    priority:
+                        "Medium",
+
+                    department:
+                        "IT Department",
+
+                    reason:
+                        "Internet or network connectivity issue",
+
+                    status:
+                        "In Progress"
+
+                },
+
+
+                {
+
+                    id:
+                        "DEMO1003",
+
+                    name:
+                        "Kabir",
+
+                    problem:
+                        "Smoke detected near electrical room",
+
+                    location:
+                        "Academic Block",
+
+                    category:
+                        "Safety",
+
+                    priority:
+                        "High",
+
+                    department:
+                        "Campus Safety",
+
+                    reason:
+                        "Possible safety hazard requiring immediate attention",
+
+                    status:
+                        "Pending"
+
+                },
+
+
+                {
+
+                    id:
+                        "DEMO1004",
+
+                    name:
+                        "Ananya",
+
+                    problem:
+                        "Washroom cleanliness issue",
+
+                    location:
+                        "Academic Block",
+
+                    category:
+                        "Cleanliness",
+
+                    priority:
+                        "Medium",
+
+                    department:
+                        "Housekeeping",
+
+                    reason:
+                        "Cleanliness or hygiene-related issue",
+
+                    status:
+                        "Resolved"
+
+                }
+
+            ];
+
+
+            demoComplaints.forEach(
+                function(demo) {
+
+                    let alreadyExists =
+                        complaints.some(
+                            function(item) {
+
+                                return item.id ===
+                                    demo.id;
+
+                            }
+                        );
+
+
+                    if (!alreadyExists) {
+
+                        complaints.push(
+                            demo
+                        );
+
+                    }
+
+                }
+            );
+
+
+            localStorage.setItem(
+                "complaints",
+                JSON.stringify(complaints)
+            );
+
+
+            loadDashboard();
+
+        }
+
+
+        /* ============================= */
+        /* Clear Complaints */
+        /* ============================= */
+
+        function clearComplaints() {
+
+
+            let confirmed =
+                confirm(
+                    "Are you sure you want to delete all complaints?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                "complaints"
+            );
+
+
+            loadDashboard();
+
+        }
+
+
+        /* ============================= */
+        /* Load Dashboard */
+        /* ============================= */
+
+        loadDashboard();
+
+
+    </script>
+
+
+</body>
+
+</html>
